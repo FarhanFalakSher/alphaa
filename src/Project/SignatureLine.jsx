@@ -1,10 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import sign01 from '../assets/sign01.jpg';
-import sign02 from '../assets/sign02.jpg';
-import sign03 from '../assets/sign03.jpg';
+import React from "react";
+import { motion } from "framer-motion";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+
+import sign01 from "../assets/sign01.jpg";
+import sign02 from "../assets/sign02.jpg";
+import sign03 from "../assets/sign03.jpg";
 
 function SignatureLine() {
   const navigate = useNavigate();
@@ -12,21 +13,27 @@ function SignatureLine() {
   const cards = [
     {
       img: sign01,
-      title: 'The Platinum Care',
-      icon: '✨',
-      desc: 'Our highest tier service for your most precious garments. Hand-washed, steamed, and wrapped in protective tissue.',
+      title: "The Platinum Care",
+      icon: "✨",
+      desc:
+        "Our highest tier service for your most precious garments. Hand-washed, steamed, and wrapped in protective tissue.",
+      to: "/our",
     },
     {
       img: sign02,
-      title: 'Executive Collection',
-      icon: '👔',
-      desc: 'Precision care for business attire. Perfect creases, stain removal, and fabric revitalization for your professional image.',
+      title: "Executive Collection",
+      icon: "👔",
+      desc:
+        "Precision care for business attire. Perfect creases, stain removal, and fabric revitalization for your professional image.",
+      to: "/our",
     },
     {
       img: sign03,
-      title: 'Couture Preservation',
-      icon: '🧵',
-      desc: 'Specialized care for designer pieces and delicate fabrics. Museum-quality cleaning to maintain texture and color integrity.',
+      title: "Couture Preservation",
+      icon: "🧵",
+      desc:
+        "Specialized care for designer pieces and delicate fabrics. Museum-quality cleaning to maintain texture and color integrity.",
+      to: "/our",
     },
   ];
 
@@ -34,178 +41,165 @@ function SignatureLine() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.25,
-        when: "beforeChildren"
-      }
-    }
+      transition: { staggerChildren: 0.18, when: "beforeChildren" },
+    },
   };
 
   const item = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 22, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 1, 0.5, 1]
-      }
-    }
+      transition: { duration: 0.7, ease: [0.25, 1, 0.5, 1] },
+    },
   };
 
-  const handleClick = () => navigate("/our");
-  const handleCHange = () => navigate("/services");
-  const helloGarments = () => navigate("/services");
-
   return (
-    <motion.div
+    <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: 0.25 }}
       variants={container}
-      className="bg-white py-12 px-4 md:px-12 lg:px-24"
+      className="bg-white px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 py-12 md:py-16"
     >
       {/* Header */}
-      <motion.div variants={item} className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-light text-[#1C1C1C] mb-3 tracking-tight">
+      <motion.div variants={item} className="text-center mb-12 md:mb-16">
+        <h1 className="text-[34px] md:text-[44px] lg:text-[56px] leading-tight font-light text-[#1C1C1C]">
           Signature Lines
         </h1>
-        <p className="text-xl text-[#D4AF37] tracking-widest font-medium relative inline-block before:content-[''] before:absolute before:w-16 before:h-[1px] before:bg-[#D4AF37] before:left-[-70px] before:top-1/2 after:content-[''] after:absolute after:w-16 after:h-[1px] after:bg-[#D4AF37] after:right-[-70px] after:top-1/2">
-          THE AKOYA COLLECTION
-        </p>
+
+        {/* gold divider + subtitle exactly like screenshot */}
+        <div className="mt-3 flex items-center justify-center gap-4">
+          <span className="h-px w-12 md:w-16 bg-[#D4AF37]" />
+          <p className="text-[#D4AF37] tracking-[0.35em] text-xs md:text-sm font-medium">
+            THE AKOYA COLLECTION
+          </p>
+          <span className="h-px w-12 md:w-16 bg-[#D4AF37]" />
+        </div>
       </motion.div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {cards.map((card, index) => (
-          <motion.div
-            key={index}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+        {cards.map((card, i) => (
+          <motion.article
+            key={card.title}
             variants={item}
-            className="relative group rounded-2xl overflow-hidden shadow-xl"
-            whileHover={{ y: -10 }}
-            transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.35 }}
+            className="relative rounded-2xl overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,.12)]"
           >
-            <div className="relative h-[430px] overflow-hidden">
-              <motion.img
+            {/* Keep all cards same size; aspect-[4/3] matches screenshot proportions */}
+            <div className="relative aspect-[4/3] md:aspect-[5/4]">
+              <img
                 src={card.img}
                 alt={card.title}
-                className="w-full h-80 object-cover rounded-2xl brightness-95"
-                whileHover={{
-                  scale: 1.05,
-                  transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }
-                }}
+                className="absolute inset-0 h-full w-full object-cover"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+              {/* stronger bottom gradient for legibility */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/85 via-black/55 to-transparent" />
 
-              <motion.div
-                className="absolute top-5 left-5 text-4xl w-14 h-14 flex items-center justify-center bg-[#D4AF37] rounded-full text-white shadow-lg"
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-              >
-                {card.icon}
-              </motion.div>
+              {/* badge */}
+              <div className="absolute top-4 left-4 md:top-5 md:left-5">
+                <div className="h-11 w-11 md:h-12 md:w-12 rounded-full bg-[#D4AF37] text-white grid place-items-center text-2xl shadow-lg">
+                  <span aria-hidden>{card.icon}</span>
+                </div>
+              </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
-                <motion.h3
-                  className="text-2xl font-medium mb-2"
-                  whileHover={{ x: 6 }}
-                  transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-                >
+              {/* copy block — aligned to same paddings for all */}
+              <div className="absolute inset-x-4 md:inset-x-5 bottom-4 text-white">
+                <h3 className="text-xl md:text-2xl font-medium mb-1.5">
                   {card.title}
-                </motion.h3>
-                <p className="text-white/90 text-sm leading-relaxed">
+                </h3>
+                <p className="text-white/90 text-sm md:text-base leading-relaxed line-clamp-3">
                   {card.desc}
                 </p>
+
                 <motion.button
-                  onClick={handleClick}
-                  className="mt-4 px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2"
-                  style={{ backgroundColor: 'rgb(212, 175, 55)', color: 'rgb(28, 28, 28)' }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  onClick={() => navigate(card.to)}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="mt-3 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm md:text-base font-medium"
+                  style={{
+                    backgroundColor: "rgb(212, 175, 55)",
+                    color: "rgb(28, 28, 28)",
+                  }}
                 >
-                  Discover <span className="text-lg">➜</span>
+                  Discover <FaArrowRightLong className="translate-y-[1px]" />
                 </motion.button>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
 
-      {/* View All Button */}
-      <motion.button
-        onClick={handleCHange}
-        variants={item}
-        className="px-8 text-center mt-16 py-3 border border-[#1C1C1C] text-[#1C1C1C] rounded-full hover:bg-[#1C1C1C] hover:text-white transition-all duration-300 flex items-center mx-auto gap-2"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-      >
-        View All Collection <FaArrowRightLong />
-      </motion.button>
-
-      {/* Services Section */}
-      <motion.div variants={item} className="text-center mb-16 mt-24">
-        <h2 className="text-4xl md:text-5xl font-bold text-[#1C1C1C] mb-4">How Would You Like It Washed?</h2>
-        <p className="text-[#D4AF37] font-semibold text-lg tracking-wide uppercase">Choose your experience</p>
+      {/* View All */}
+      <motion.div variants={item} className="mt-10 md:mt-12 text-center">
+        <motion.button
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => navigate("/services")}
+          className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#1C1C1C] px-6 md:px-8 py-2.5 text-sm md:text-base text-[#1C1C1C] hover:bg-[#1C1C1C] hover:text-white transition-colors"
+        >
+          View All Collection <FaArrowRightLong />
+        </motion.button>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-12 max-w-full mx-auto">
+      {/* Services teaser (kept minimal + aligned) */}
+      <motion.div variants={item} className="text-center mt-14 md:mt-20">
+        <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-[#1C1C1C]">
+          How Would You Like It Washed?
+        </h2>
+        <p className="text-[#D4AF37] font-semibold tracking-wide uppercase text-sm md:text-base mt-2">
+          Choose your experience
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 mt-6 md:mt-8">
         <motion.div
           variants={item}
-          className="bg-[#F5E1DA] p-8 rounded-3xl shadow-lg"
-          whileHover={{
-            y: -5,
-            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
-            transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }
-          }}
+          whileHover={{ y: -4 }}
+          className="rounded-3xl bg-[#F5E1DA] p-6 md:p-8 text-center shadow-[0_10px_20px_rgba(0,0,0,.08)]"
         >
-          <span className="text-5xl mb-5">🧼</span>
-          <h3 className="text-2xl font-bold mt-4 text-[#1C1C1C] mb-2">Standard Wash</h3>
-          <p className="text-[#2C2C2C] mb-4">Our signature 48-hour service with gentle cleaning, eco-friendly detergents, and basic folding.</p>
-          <h3 className="text-[#D4AF37] font-medium text-lg">From 50 QAR</h3>
+          <div className="text-4xl md:text-5xl mb-3">🧼</div>
+          <h3 className="text-xl md:text-2xl font-semibold text-[#1C1C1C]">
+            Standard Wash
+          </h3>
+          <p className="mt-2 text-[#2C2C2C] text-sm md:text-base">
+            Our signature 48-hour service with gentle cleaning, eco-friendly
+            detergents, and basic folding.
+          </p>
+          <p className="mt-2 text-[#D4AF37] font-medium">From 50 QAR</p>
         </motion.div>
 
         <motion.div
           variants={item}
-          className="bg-[#F5E1DA] p-8 rounded-3xl shadow-lg"
-          whileHover={{
-            y: -5,
-            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
-            transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }
-          }}
+          whileHover={{ y: -4 }}
+          className="rounded-3xl bg-[#F5E1DA] p-6 md:p-8 text-center shadow-[0_10px_20px_rgba(0,0,0,.08)]"
         >
-          <span className="text-5xl mb-5">⚡</span>
-          <h3 className="text-2xl mt-4 font-bold text-[#1C1C1C] mb-2">Express Wash</h3>
-          <p className="text-[#2C2C2C] mb-4">Need it fast? Get 24-hour turnaround, priority processing, and premium care.</p>
-          <h3 className="text-[#D4AF37] font-medium text-lg">From 80 QAR</h3>
+          <div className="text-4xl md:text-5xl mb-3">⚡</div>
+          <h3 className="text-xl md:text-2xl font-semibold text-[#1C1C1C]">
+            Express Wash
+          </h3>
+          <p className="mt-2 text-[#2C2C2C] text-sm md:text-base">
+            Need it fast? Get 24-hour turnaround, priority processing, and
+            premium care.
+          </p>
+          <p className="mt-2 text-[#D4AF37] font-medium">From 80 QAR</p>
         </motion.div>
       </div>
 
-      {/* CTA Button */}
-      <motion.div
-        variants={item}
-        className="mt-12 text-center"
-        whileInView={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        viewport={{ once: true }}
-      >
+      <motion.div variants={item} className="text-center mt-8 md:mt-12">
         <motion.button
-          onClick={helloGarments}
-          className="bg-[#D4AF37] text-[#1C1C1C] font-semibold px-8 py-4 rounded-full shadow-md"
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.2)",
-            transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] }
-          }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => navigate("/services")}
+          className="rounded-full bg-[#D4AF37] text-[#1C1C1C] font-semibold px-6 md:px-8 py-2.5 text-sm md:text-base shadow-md"
         >
           Continue to Garment Selection
         </motion.button>
       </motion.div>
-    </motion.div>
+    </motion.section>
   );
 }
 

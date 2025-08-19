@@ -189,6 +189,7 @@ const Card1 = () => {
                     {selectedService ? selectedService.price : "0 QAR"}
                   </span>
                 </div>
+                {/* no Book Now button here */}
               </div>
             </div>
           </div>

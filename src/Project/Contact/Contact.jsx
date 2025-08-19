@@ -11,39 +11,39 @@ const slides = [
     title: 'Luxury Detailing',
     subtitle: 'Your car deserves the best',
     image: sign02,
-    bgColor: 'bg-[#1a1a2e]', 
-    overlayColor: 'bg-black/60'
+    bgColor: 'bg-[#1a1a2e]',
+    overlayColor: 'bg-black/60',
   },
   {
     id: 2,
     title: 'Premium Wash',
     subtitle: 'Spotless finish every time',
     image: heroc1,
-    bgColor: 'bg-[#1e1e1e]', 
-    overlayColor: 'bg-black/60'
+    bgColor: 'bg-[#1e1e1e]',
+    overlayColor: 'bg-black/60',
   },
   {
     id: 3,
     title: 'Express Service',
     subtitle: 'Quick turnaround without compromising quality',
     image: heroc2,
-    bgColor: 'bg-[#1C1C1C]', 
-    overlayColor: 'bg-black/60' 
+    bgColor: 'bg-[#1C1C1C]',
+    overlayColor: 'bg-black/60',
   },
 ];
 
 const textVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
+    transition: { duration: 0.8, ease: 'easeOut' },
   },
-  exit: { 
-    opacity: 0, 
+  exit: {
+    opacity: 0,
     y: -20,
-    transition: { duration: 0.5, ease: "easeIn" }
-  }
+    transition: { duration: 0.5, ease: 'easeIn' },
+  },
 };
 
 const Contact = () => {
@@ -64,8 +64,9 @@ const Contact = () => {
 
   return (
     <>
-      <div className={`relative text-white overflow-hidden h-96 min-h-[530px] flex items-center transition-colors duration-1000 ${slides[currentSlide].bgColor}`}>
-
+      <div
+        className={`relative text-white overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[90vh] flex items-center transition-colors duration-1000 ${slides[currentSlide].bgColor}`}
+      >
         {/* Background Slides */}
         <div className="absolute inset-0 transition-all duration-1000">
           {slides.map((slide, index) => (
@@ -76,57 +77,59 @@ const Contact = () => {
               }`}
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className={`absolute inset-0 ${slide.overlayColor} transition-all duration-1000`}></div>
+              <div
+                className={`absolute inset-0 ${slide.overlayColor} transition-all duration-1000`}
+              ></div>
             </div>
           ))}
         </div>
 
         {/* Decorative blur circles */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-[#D4AF37] mix-blend-multiply filter blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-60 h-60 rounded-full bg-[#D4AF37] mix-blend-multiply filter blur-3xl"></div>
+          <div className="absolute top-10 left-5 md:top-20 md:left-10 w-28 h-28 md:w-40 md:h-40 rounded-full bg-[#D4AF37] mix-blend-multiply filter blur-3xl"></div>
+          <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-40 h-40 md:w-60 md:h-60 rounded-full bg-[#D4AF37] mix-blend-multiply filter blur-3xl"></div>
         </div>
 
-        {/* Slide Content with Framer Motion */}
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-20 w-full">
+        {/* Slide Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 lg:px-24 relative z-20 w-full">
           <div className="text-center">
-            <AnimatePresence mode='wait'>
+            <AnimatePresence mode="wait">
               <motion.h1
                 key={`title-${currentSlide}`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 variants={textVariants}
-                className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 tracking-tight"
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light mb-4 md:mb-6 tracking-tight"
               >
                 {slides[currentSlide].title}
               </motion.h1>
             </AnimatePresence>
-            
-            <AnimatePresence mode='wait'>
+
+            <AnimatePresence mode="wait">
               <motion.p
                 key={`subtitle-${currentSlide}`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 variants={textVariants}
-                className="text-lg md:text-xl max-w-2xl mx-auto text-[#D4AF37]"
+                className="text-sm sm:text-base md:text-lg lg:text-xl max-w-xl md:max-w-2xl mx-auto text-[#D4AF37] px-2"
               >
                 {slides[currentSlide].subtitle}
               </motion.p>
             </AnimatePresence>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="mt-8 h-px bg-[#D4AF37] w-32 mx-auto"
+              className="mt-6 md:mt-8 h-px bg-[#D4AF37] w-24 md:w-32 mx-auto"
             />
           </div>
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -137,15 +140,17 @@ const Contact = () => {
                   setTimeout(() => setIsTransitioning(false), 1000);
                 }, 200);
               }}
-              className={`w-3 h-3 rounded-full transition-all ${
-                index === currentSlide ? 'bg-[#D4AF37] scale-125' : 'bg-white/50'
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
+                index === currentSlide
+                  ? 'bg-[#D4AF37] scale-125'
+                  : 'bg-white/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </div>
-      <ContacUs/>
+      <ContacUs />
     </>
   );
 };
